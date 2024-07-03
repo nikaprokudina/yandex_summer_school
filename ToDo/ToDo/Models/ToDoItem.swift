@@ -1,12 +1,12 @@
 import Foundation
 
-enum Importance: String{
+enum Importance: String, Hashable {
     case low = "unimportant"
     case medium = "regular"
     case high = "important"
 }
 
-public struct ToDoItem{
+public struct ToDoItem: Hashable {
     let id: String
     let text: String
     let importance: Importance
@@ -14,8 +14,8 @@ public struct ToDoItem{
     let isDone: Bool
     let creationDate: Date
     let changeDate: Date?
-    
-    init(id: String = UUID().uuidString, text: String, importance: Importance, deadline: Date?, isDone: Bool, creationDate: Date, modificationDate: Date?){
+
+    init(id: String = UUID().uuidString, text: String, importance: Importance, deadline: Date?, isDone: Bool, creationDate: Date, modificationDate: Date?) {
         self.id = id
         self.text = text
         self.importance = importance
@@ -25,6 +25,4 @@ public struct ToDoItem{
         self.changeDate = modificationDate
     }
 }
-
-
 

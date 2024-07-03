@@ -7,7 +7,7 @@ extension ToDoItem {
         guard parsedCSV.count >= 7,
               let isDone = Bool(parsedCSV[4]),
               let creationDate = ISO8601DateFormatter().date(from: parsedCSV[5]) else {
-                return nil
+            return nil
         }
 
         let id = parsedCSV[0]
@@ -15,7 +15,7 @@ extension ToDoItem {
         let importance = Importance(rawValue: parsedCSV[2]) ?? .medium
         let deadline = ISO8601DateFormatter().date(from: parsedCSV[3])
         let changeDate = ISO8601DateFormatter().date(from: parsedCSV[6])
-        
+
         return ToDoItem(id: id, text: text, importance: importance, deadline: deadline, isDone: isDone, creationDate: creationDate, modificationDate: changeDate)
     }
 
@@ -32,4 +32,3 @@ extension ToDoItem {
         return csvString.map { $0 ?? "" }.joined(separator: ",")
     }
 }
-

@@ -23,9 +23,7 @@ extension ToDoItem {
         return ToDoItem(id: id, text: text, importance: importance, deadline: deadline, isDone: isDone, creationDate: creationDate, modificationDate: changeDate)
     }
 
-    
-    
-    var json: Any{      // формирование json
+    var json: Any {      // формирование json
         var jsonDict: [String: Any] = [
             "id": id,
             "text": text,
@@ -33,15 +31,15 @@ extension ToDoItem {
             "creationDate": ISO8601DateFormatter().string(from: creationDate)
         ]
         
-        if importance != .medium{
+        if importance != .medium {
             jsonDict["importance"] = importance.rawValue
         }
         
-        if let deadline = deadline{
+        if let deadline = deadline {
             jsonDict["deadline"] = ISO8601DateFormatter().string(from: deadline)
         }
         
-        if let changeDate = changeDate{
+        if let changeDate = changeDate {
             jsonDict["changeDate"] = ISO8601DateFormatter().string(from: changeDate)
         }
         
