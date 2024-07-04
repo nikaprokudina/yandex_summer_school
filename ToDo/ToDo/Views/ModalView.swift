@@ -52,7 +52,6 @@ struct ModalView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Сохранить") {
-                        // Логика для сохранения изменений
                         let updatedItem = ToDoItem(id: selectItem.id, text: text, importance: importance, deadline: isDeadline ? selectedDate : nil, isDone: selectItem.isDone, creationDate: selectItem.creationDate, modificationDate: Date())
                         if let index = DataControlModel().data.firstIndex(where: { $0.id == selectItem.id }) {
                             DataControlModel().data[index] = updatedItem

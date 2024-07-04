@@ -22,18 +22,18 @@ struct RowsView: View {
                     .lineLimit(3)
                     .strikethrough()
                     .font(.system(size: 17))
-                    .foregroundStyle(Color("LabelTertiary"))
+                    .foregroundStyle(Color(UIColor.tertiaryLabel))
             } else {
                 Text(item.text)
                     .font(.system(size: 17))
-                    .foregroundStyle(Color("LabelPrimary"))
+                    .foregroundStyle(Color(UIColor.label))
                 if let deadline = item.deadline {
                     HStack {
                         Image(systemName: "calendar")
                         Text(deadline, style: .date)
                     }
                     .font(.system(size: 15))
-                    .foregroundStyle(Color("LabelTertiary"))
+                    .foregroundStyle(Color(UIColor.tertiaryLabel))
                 }
             }
         }
@@ -42,7 +42,7 @@ struct RowsView: View {
     private func CircleImage() -> some View {
         Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
             .resizable()
-            .foregroundStyle(item.isDone ? Color.green : item.importance == .high ? Color.red : Color("SupportSeparator"))
+            .foregroundStyle(item.isDone ? Color.green : item.importance == .high ? Color.red : Color(UIColor.separator))
             .frame(width: 24, height: 24)
     }
 
