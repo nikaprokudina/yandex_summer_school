@@ -52,6 +52,7 @@ struct ModalView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Сохранить") {
+                        // Логика для сохранения изменений
                         let updatedItem = ToDoItem(id: selectItem.id, text: text, importance: importance, deadline: isDeadline ? selectedDate : nil, isDone: selectItem.isDone, creationDate: selectItem.creationDate, modificationDate: Date())
                         if let index = DataControlModel().data.firstIndex(where: { $0.id == selectItem.id }) {
                             DataControlModel().data[index] = updatedItem
@@ -61,12 +62,9 @@ struct ModalView: View {
                 }
             }
             .onChange(of: isDeadline) { value in
-                withAnimation(.easeInOut(duration: 1)) {
-                    isShowDatePicker = value
-                }
+                isShowDatePicker = value
             }
         }
-        .animation(.easeInOut)
         .onAppear {
             text = selectItem.text
             importance = selectItem.importance
@@ -98,14 +96,11 @@ struct ModalView: View {
                 Spacer()
                 Toggle("", isOn: $isDeadline)
             }
-            .animation(nil)
             if isShowDatePicker {
                 Divider()
                 DatePicker("", selection: $selectedDate, displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .environment(\.locale, Locale.init(identifier: Locale.preferredLanguages.first ?? "en-US"))
-                    .transition(.slide)
-                    .animation(.easeInOut)
             }
         }
     }
@@ -113,9 +108,7 @@ struct ModalView: View {
     private func ShowDatePickerButton() -> some View {
         Button(
             action: {
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    isShowDatePicker.toggle()
-                }
+                isShowDatePicker.toggle()
             },
             label: {
                 let text = DateFormatter.localizedString(from: selectedDate, dateStyle: .medium, timeStyle: .none)

@@ -3,7 +3,7 @@ import SwiftUI
 
 class CalendarToDoViewController: UIViewController {
 
-    var viewModel = DataControlModel()
+    @ObservedObject var viewModel = DataControlModel()
     var tableView: UITableView!
     var collectionView: UICollectionView!
     var selectedDate: Date?
@@ -75,15 +75,13 @@ class CalendarToDoViewController: UIViewController {
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalToConstant: 50),
             button.heightAnchor.constraint(equalToConstant: 50),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
     }
     
     @objc func addNewItem() {
-        let swiftUIView = MainView()
-        let hostingController = UIHostingController(rootView: swiftUIView)
-        present(hostingController, animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -110,7 +108,21 @@ extension CalendarToDoViewController: UICollectionViewDelegate, UICollectionView
             selectedDate = Array(dataSource.keys)[indexPath.item]
         }
         tableView.reloadData()
-        // Scroll tableView to selected date section if needed
+        scrollToSelectedDate()
+    }
+    
+    func scrollToSelectedDate() {
+        if let selectedDate = selectedDate {
+            if let section = Array(dataSource.keys).firstIndex(of: selectedDate) {
+                let indexPath = IndexPath(row: 0, section: section)
+                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            }
+        } else {
+            if !otherItems.isEmpty {
+                let indexPath = IndexPath(row: 0, section: dataSource.keys.count)
+                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            }
+        }
     }
 }
 
