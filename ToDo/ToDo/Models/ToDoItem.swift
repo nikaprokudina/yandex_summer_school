@@ -11,7 +11,7 @@ public struct ToDoItem: Hashable {
     let text: String
     let importance: Importance
     let deadline: Date?
-    let isDone: Bool
+    var isDone: Bool
     let creationDate: Date
     let changeDate: Date?
 
@@ -25,4 +25,3 @@ public struct ToDoItem: Hashable {
         self.changeDate = modificationDate
     }
 }
-

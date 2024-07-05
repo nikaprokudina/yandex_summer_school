@@ -4,14 +4,14 @@ struct MainView: View {
     @StateObject private var viewModel = DataControlModel()
     @State private var show = "Показать"
     @State private var item: [ToDoItem] = []
-    @Environment(\.dismiss) var dismiss
     @State private var showModal = false
     @State private var selectedIndex: Int = 0
     @State private var selectedItem: ToDoItem?
     @State private var isShow = false
+    @State private var showCalendar = false
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack(alignment: .bottom) {
                 ListNeedToDo()
                 Button {
@@ -22,7 +22,7 @@ struct MainView: View {
                 } label: {
                     ZStack {
                         Circle()
-                            .foregroundStyle(Color("Blue"))
+                            .foregroundStyle(Color.blue)
                             .frame(width: 44, height: 44)
                         Image(systemName: "plus")
                             .resizable()
@@ -32,6 +32,26 @@ struct MainView: View {
                     }
                 }
                 .shadow(color: .black.opacity(0.4), radius: 4, x: 0, y: 8)
+            }
+            .navigationTitle("Мои дела")
+            .navigationBarItems(trailing: Button(action: {
+                showCalendar = true
+            }) {
+                Image(systemName: "calendar")
+                    .imageScale(.large)
+            })
+            .sheet(isPresented: $showModal) {
+                ModalView(
+                    toDo: selectedItem ?? ToDoItem(text: "", importance: .medium, deadline: nil, isDone: false, creationDate: Date(), modificationDate: nil),
+                    selectItem: selectedItem ?? ToDoItem(text: "", importance: .medium, deadline: nil, isDone: false, creationDate: Date(), modificationDate: nil),
+                    importance: selectedItem?.importance ?? .medium,
+                    isDeadline: selectedItem?.deadline != nil ? true : false,
+                    isShowDatePicker: false,
+                    text: selectedItem?.text ?? ""
+                )
+            }
+            .fullScreenCover(isPresented: $showCalendar) {
+                CalendarHostingView()
             }
         }
         .onAppear {
@@ -50,10 +70,10 @@ struct MainView: View {
                             showModal = true
                         }
                 }
-                .listRowBackground(Color("BackSecondary"))
+                .listRowBackground(Color(UIColor.systemGray6))
                 .swipeActions(edge: .leading) {
                     Button {
-                        viewModel.changeData(index: selectedIndex)
+                        _ = viewModel.changeData(index: selectedIndex)
                         item = viewModel.filterDataNotDone()
                     } label: {
                         Image(systemName: "checkmark.circle")
@@ -72,12 +92,12 @@ struct MainView: View {
                     } label: {
                         Image(systemName: "info.circle")
                     }
-                    .tint(Color("ColorGrayLight"))
+                    .tint(Color(UIColor.lightGray))
                 }
             } header: {
                 HStack {
                     Text("Выполнено - \(viewModel.filterDataIsDone().count)")
-                        .foregroundStyle(Color("LabelTertiary"))
+                        .foregroundStyle(Color(UIColor.tertiaryLabel))
                         .font(.system(size: 15))
                     Spacer()
                     Button(action: {
@@ -97,26 +117,16 @@ struct MainView: View {
                 }
             }
         }
-        
         .navigationTitle(
             Text("Мои дела")
-                .foregroundStyle(Color("LabelPrimary"))
+                .foregroundStyle(Color(UIColor.label))
         )
         .font(.system(size: 38))
-        .background(Color("BackSecondary"))
-        .sheet(isPresented: $showModal) {
-            ModalView(
-                toDo: selectedItem ?? ToDoItem(text: "", importance: .medium, deadline: nil, isDone: false, creationDate: Date(), modificationDate: nil),
-                selectItem: selectedItem ?? ToDoItem(text: "", importance: .medium, deadline: nil, isDone: false, creationDate: Date(), modificationDate: nil),
-                importance: selectedItem?.importance ?? .medium,
-                isDeadline: selectedItem?.deadline != nil ? true : false,
-                isShowDatePicker: false,
-                text: selectedItem?.text ?? ""
-            )
-        }
+        .background(Color(UIColor.systemGray6))
     }
 }
 
 #Preview {
     MainView()
 }
+
