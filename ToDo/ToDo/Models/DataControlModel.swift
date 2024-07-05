@@ -15,6 +15,10 @@ final class DataControlModel: ObservableObject {
         ToDoItem(text: "Заправить машину", importance: .low, deadline: createDate(day: 28, month: 5, year: 2024), isDone: false, creationDate: Date(), modificationDate: nil),
         ToDoItem(text: "Позвонить врачу", importance: .medium, deadline: createDate(day: 29, month: 5, year: 2024), isDone: false, creationDate: Date(), modificationDate: nil),
         ToDoItem(text: "Сделать домашнее задание", importance: .high, deadline: createDate(day: 30, month: 5, year: 2024), isDone: false, creationDate: Date(), modificationDate: nil),
+        ToDoItem(text: "Сделать звонок", importance: .high, deadline: nil, isDone: false, creationDate: Date(), modificationDate: nil),
+        ToDoItem(text: "Заправить машину", importance: .low, deadline: createDate(day: 28, month: 6, year: 2024), isDone: false, creationDate: Date(), modificationDate: nil),
+        ToDoItem(text: "Позвонить врачу", importance: .medium, deadline: createDate(day: 29, month: 7, year: 2024), isDone: false, creationDate: Date(), modificationDate: nil),
+        ToDoItem(text: "Сделать домашнее задание", importance: .high, deadline: createDate(day: 30, month: 8, year: 2024), isDone: false, creationDate: Date(), modificationDate: nil),
         ToDoItem(text: "Сделать звонок", importance: .high, deadline: nil, isDone: false, creationDate: Date(), modificationDate: nil)
     ]
     

@@ -60,15 +60,9 @@ class DateCell: UICollectionViewCell {
 
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                containerView.layer.borderWidth = 1.5
-                containerView.layer.borderColor = UIColor.lightGray.cgColor
-                containerView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-            } else {
-                containerView.layer.borderWidth = 0
-                containerView.layer.borderColor = UIColor.clear.cgColor
-                containerView.backgroundColor = UIColor.clear
-            }
+            containerView.backgroundColor = isSelected ? UIColor.lightGray.withAlphaComponent(0.3) : .clear
+            containerView.layer.borderColor = isSelected ? UIColor.lightGray.cgColor : UIColor.clear.cgColor
+            containerView.layer.borderWidth = isSelected ? 1.5 : 0
         }
     }
 }

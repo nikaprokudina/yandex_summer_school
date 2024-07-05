@@ -23,6 +23,5 @@ struct CalendarHostingView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: CalendarViewController, context: Context) {
-        // Обновление состояния контроллера (если необходимо)
     }
 }
