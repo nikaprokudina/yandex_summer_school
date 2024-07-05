@@ -16,8 +16,6 @@ class DateCell: UICollectionViewCell {
 
     private func setupViews() {
         containerView.layer.cornerRadius = 8
-        containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = UIColor.lightGray.cgColor
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
         dayLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -62,7 +60,15 @@ class DateCell: UICollectionViewCell {
 
     override var isSelected: Bool {
         didSet {
-            containerView.backgroundColor = isSelected ? UIColor.lightGray.withAlphaComponent(0.3) : UIColor.clear
+            if isSelected {
+                containerView.layer.borderWidth = 1.5
+                containerView.layer.borderColor = UIColor.lightGray.cgColor
+                containerView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            } else {
+                containerView.layer.borderWidth = 0
+                containerView.layer.borderColor = UIColor.clear.cgColor
+                containerView.backgroundColor = UIColor.clear
+            }
         }
     }
 }
